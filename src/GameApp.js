@@ -10,10 +10,13 @@ class GameApp extends Component {
       secondNum: this.random(),
       thirdNum: this.random(),
       dealClicked: false,
+      noDealClicked: false,
       higherClicked: false,
       lowerClicked: false,
       nextRoundClicked: false,
       text: false,
+      status: " ",
+      // totalScore: 0,
     };
   }
 
@@ -24,73 +27,106 @@ class GameApp extends Component {
 
   // start the game
   start = () => {
+    const num1 = this.random();
+    const num2 = this.random();
     this.setState({
-      firstNum: this.random(),
-      secondNum: this.random(),
+      firstNum: Math.min(num1, num2),
+      secondNum: Math.max(num1, num2),
     });
     this.state.round++;
     console.log("ROUND: " + this.state.round);
+    console.log("points: " + this.state.score);
   };
 
   // restart the game
   restart = () => {
-    this.setState({ round: 0 });
+    window.location.reload();
   };
 
-  // deal
+  // deal 5 11 7
   deal = () => {
-    this.setState({ thirdNum: this.random(), text: "Deal" });
-    console.log("deal is clicked");
-    this.state.dealClicked = true;
-    // ipapasok yung validation ng kung yung third number ay nasa gitna ng first and second
-    if (
-      (this.state.thirdNum > this.state.firstNum &&
-        this.state.thirdNum < this.state.secondNum) ||
-      (this.state.thirdNum < this.state.secondNum &&
-        this.state.thirdNum > this.state.firstNum)
-    ) {
-      console.log("plus points");
-    } else {
-      console.log("minus points");
-    }
+    this.setState({ thirdNum: this.random(), text: "DEAL" }, () => {
+      console.log("deal is clicked");
+      this.setState({ dealClicked: true });
+      // ipapasok yung validation ng kung yung third number ay nasa gitna ng first and second
+      if (
+        this.state.thirdNum > this.state.firstNum &&
+        this.state.thirdNum < this.state.secondNum
+      ) {
+        console.log("plus points");
+        this.setState({ status: "WIN" });
+        this.state.score++;
+      } else {
+        console.log("minus points");
+        this.setState({ status: "LOSE" });
+        this.state.score--;
+      }
+    });
+    // console.log("deal is clicked");
+    // this.state.dealClicked = true;
+    // // ipapasok yung validation ng kung yung third number ay nasa gitna ng first and second
+    // if (
+    //   this.state.thirdNum > this.state.firstNum &&
+    //   this.state.thirdNum < this.state.secondNum
+    // ) {
+    //   console.log("plus points");
+    //   this.state.score++;
+    // } else {
+    //   console.log("minus points");
+    //   this.state.score--;
+    // }
+    // console.log(this.state.firstNum);
+    // console.log(this.state.secondNum);
+    // console.log(this.state.thirdNum);
   };
 
   // no deal
   noDeal = () => {
+    this.setState({ text: "NO DEAL", status: "NO DEAL" });
     console.log("no deal is clicked");
+    this.state.noDealClicked = true;
+    this.state.score = this.state.score - 0.5;
   };
 
   // higher
   higher = () => {
     console.log("higher is clicked");
-    this.setState({ thirdNum: this.random() });
-    this.state.higherClicked = true;
-    if (this.state.thirdNum > this.state.firstNum) {
-      this.state.score++;
-    } else {
-      this.state.score--;
-    }
-    console.log(this.state.score);
+    this.setState({ thirdNum: this.random(), text: "HIGHER" }, () => {
+      this.state.higherClicked = true;
+      if (this.state.thirdNum > this.state.firstNum) {
+        this.setState({ status: "WIN" });
+        this.state.score++;
+      } else {
+        this.setState({ status: "LOSE" });
+        this.state.score--;
+      }
+      console.log("points: " + this.state.score);
+    });
   };
 
   // lower
   lower = () => {
     console.log("lower is clicked");
-    this.setState({ thirdNum: this.random() });
-    this.state.lowerClicked = true;
-    if (this.state.thirdNum < this.state.firstNum) {
-      this.state.score++;
-    } else {
-      this.state.score--;
-    }
-    console.log(this.state.score);
+    this.setState({ thirdNum: this.random(), text: "LOWER" }, () => {
+      this.state.lowerClicked = true;
+      if (this.state.thirdNum < this.state.firstNum) {
+        this.state.score++;
+        this.setState({ status: "WIN" });
+      } else {
+        this.state.score--;
+        this.setState({ status: "LOSE" });
+      }
+      console.log("points: " + this.state.score);
+    });
   };
 
   // next round
   nextRound = () => {
     this.state.dealClicked = false;
+    this.state.noDealClicked = false;
     this.state.nextRoundClicked = true;
     // this.state.round++;
+    console.log("points: " + this.state.score);
     this.start();
   };
 
@@ -101,46 +137,77 @@ class GameApp extends Component {
           <button onClick={this.start}> Start </button>
         </div>
       );
-    } else if (this.state.firstNum == this.state.secondNum) {
-      return (
-        <div>
-          <p>First number: {this.state.firstNum}</p>
-          <p>Second number: {this.state.secondNum}</p>
-          {this.state.higherClicked && (
-            <p> Third number: {this.state.thirdNum}</p>
-          )}
-          {this.state.lowerClicked && (
-            <p> Third number: {this.state.thirdNum}</p>
-          )}
-          <button onClick={this.higher}> HIGHER </button>
-          <button onClick={this.lower}> LOWER </button>
-        </div>
-      );
     } else if (this.state.round === 6) {
       return (
         <div>
+          <p>Total score: {this.state.score} </p>
           <button onClick={this.restart}> Start again?</button>
         </div>
       );
+    } else if (this.state.firstNum === this.state.secondNum) {
+      return (
+        <div>
+          <p>Round: {this.state.round}</p>
+          <p>First number: {this.state.firstNum}</p>
+          <p>Second number: {this.state.secondNum}</p>
+          {this.state.higherClicked || this.state.lowerClicked ? (
+            <div>
+              <p> Choice: {this.state.text} </p>
+              <p> Third number: {this.state.thirdNum}</p>
+              <p> Status: {this.state.status}</p>
+              <button onClick={this.nextRound}> NEXT ROUND </button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={this.higher}> HIGHER </button>
+              <button onClick={this.lower}> LOWER </button>
+            </div>
+          )}
+          {/* {this.state.lowerClicked && (
+            <div>
+              <p> Choice: {this.state.text} </p>
+              <button onClick={this.nextRound}> NEXT ROUND </button>
+            </div>
+          )} */}
+          {/* {this.state.lowerClicked && (
+            <div>
+              <p> Choice: {this.state.text} </p>
+              <p> Third number: {this.state.thirdNum}</p>
+              <p> Status: {this.state.status}</p>
+              <button onClick={this.nextRound}> NEXT ROUND </button>
+            </div>
+          )} */}
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p>Round: {this.state.round}</p>
+          <p>First number: {this.state.firstNum}</p>
+          <p>Second number: {this.state.secondNum}</p>
+          {this.state.dealClicked || this.state.noDealClicked ? (
+            <div>
+              <p> Choice: {this.state.text} </p>
+              <p> Third number: {this.state.thirdNum}</p>
+              <p> Status: {this.state.status}</p>
+              <button onClick={this.nextRound}> NEXT ROUND </button>
+            </div>
+          ) : (
+            <div>
+              <button onClick={this.deal}> DEAL </button>
+              <button onClick={this.noDeal}> NO DEAL </button>
+            </div>
+          )}
+          {/* {this.state.noDealClicked && (
+            <div>
+              <p> Choice: {this.state.text} </p>
+            </div>
+          )} */}
+          {/* <button onClick={this.deal}> DEAL </button>
+          <button onClick={this.noDeal}> NO DEAL </button> */}
+        </div>
+      );
     }
-    return (
-      <div>
-        <p>Round: {this.state.round}</p>
-        <p>First number: {this.state.firstNum}</p>
-        <p>Second number: {this.state.secondNum}</p>
-        {this.state.dealClicked ? (
-          <div>
-            <p> Status: {this.state.text} </p>
-            <p> Third number: {this.state.thirdNum}</p>
-          </div>
-        ) : (
-          <div></div>
-        )}
-        <button onClick={this.deal}> DEAL </button>
-        <button onClick={this.restart}> NO DEAL </button>
-        <button onClick={this.nextRound}> NEXT ROUND </button>
-      </div>
-    );
   }
 }
 
