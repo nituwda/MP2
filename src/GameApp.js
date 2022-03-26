@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import './index.css';
+import { Button, Form } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class GameApp extends Component {
   constructor(props) {
@@ -44,10 +47,13 @@ class GameApp extends Component {
     this.state.dealClicked = true;
     // ipapasok yung validation ng kung yung third number ay nasa gitna ng first and second
     if (
-      (this.state.thirdNum > this.state.firstNum &&
-        this.state.thirdNum < this.state.secondNum) ||
-      (this.state.thirdNum < this.state.secondNum &&
-        this.state.thirdNum > this.state.firstNum)
+      // (this.state.thirdNum > this.state.firstNum && this.state.thirdNum < this.state.secondNum ) ||
+      // (this.state.thirdNum < this.state.secondNum && this.state.thirdNum > this.state.firstNum) ||
+      // (this.state.thirdNum < this.state.firstNum && this.state.secondNum < this.state.thirdNum) ||
+          (this.state.thirdNum < this.state.firstNum && this.state.secondNum < this.state.thirdNum) || 
+          (this.state.thirdNum > this.state.firstNum && this.state.secondNum > this.state.thirdNum) || 
+          (this.state.thirdNum < this.state.firstNum && this.state.secondNum < this.state.thirdNum)
+      
     ) {
       console.log("plus points");
     } else {
@@ -95,16 +101,20 @@ class GameApp extends Component {
   };
 
   render() {
+    
     if (this.state.round === 0) {
       return (
-        <div>
-          <button onClick={this.start}> Start </button>
+        
+        <div style={{ marginLeft: "auto", marginRight: "auto"}}>
+          <p style={{ textAlign: "center"}}> Let's play In Between </p>
+          <Button style={{ textAlign: "center", width: "300px", height: "100px"}}
+           onClick={this.start}> Start </Button>
         </div>
       );
     } else if (this.state.firstNum == this.state.secondNum) {
       return (
         <div>
-          <p>First number: {this.state.firstNum}</p>
+          <p className="font-styles">First number: {this.state.firstNum}</p>
           <p>Second number: {this.state.secondNum}</p>
           {this.state.higherClicked && (
             <p> Third number: {this.state.thirdNum}</p>
@@ -112,8 +122,8 @@ class GameApp extends Component {
           {this.state.lowerClicked && (
             <p> Third number: {this.state.thirdNum}</p>
           )}
-          <button onClick={this.higher}> HIGHER </button>
-          <button onClick={this.lower}> LOWER </button>
+          <Button varaint="success"onClick={this.higher}> HIGHER </Button>
+          <Button onClick={this.lower}> LOWER </Button>
         </div>
       );
     } else if (this.state.round === 6) {
@@ -124,10 +134,11 @@ class GameApp extends Component {
       );
     }
     return (
-      <div>
-        <p>Round: {this.state.round}</p>
-        <p>First number: {this.state.firstNum}</p>
-        <p>Second number: {this.state.secondNum}</p>
+      <div >
+        <Form>
+        <p style={{ fontSize: "24px", display: "flex", justifyContent: "center"}}>Round: {this.state.round}</p>
+        <p style={{ fontSize: "24px", display: "flex", justifyContent: "center"}}>First number: {this.state.firstNum}</p>
+        <p style={{ fontSize: "24px", display: "flex", justifyContent: "center"}}>Second number: {this.state.secondNum}</p>
         {this.state.dealClicked ? (
           <div>
             <p> Status: {this.state.text} </p>
@@ -136,11 +147,16 @@ class GameApp extends Component {
         ) : (
           <div></div>
         )}
-        <button onClick={this.deal}> DEAL </button>
-        <button onClick={this.restart}> NO DEAL </button>
-        <button onClick={this.nextRound}> NEXT ROUND </button>
+        <div style={{ display: "flex", justifyContent: "center"}}>
+        <Button style={{ margin: "10px" }} variant="success" onClick={this.deal}> DEAL </Button>
+        <Button style={{ margin: "10px" }} variant="danger" onClick={this.restart}> NO DEAL </Button>
+        <Button style={{ margin: "10px" }} variant="secondary" onClick={this.nextRound}> NEXT ROUND </Button>
+        </div>
+        </Form>
       </div>
+        
     );
+    
   }
 }
 
