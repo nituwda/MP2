@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import "./GameApp.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class GameApp extends Component {
   constructor(props) {
@@ -134,14 +137,18 @@ class GameApp extends Component {
     if (this.state.round === 0) {
       return (
         <div>
-          <button onClick={this.start}> Start </button>
+          <Button variant="primary" onClick={this.start}>
+            Start
+          </Button>
         </div>
       );
     } else if (this.state.round === 6) {
       return (
         <div>
           <p>Total score: {this.state.score} </p>
-          <button onClick={this.restart}> Start again?</button>
+          <Button variant="primary" onClick={this.restart}>
+            Start again?
+          </Button>
         </div>
       );
     } else if (this.state.firstNum === this.state.secondNum) {
@@ -155,12 +162,18 @@ class GameApp extends Component {
               <p> Choice: {this.state.text} </p>
               <p> Third number: {this.state.thirdNum}</p>
               <p> Status: {this.state.status}</p>
-              <button onClick={this.nextRound}> NEXT ROUND </button>
+              <Button variant="primary" onClick={this.nextRound}>
+                NEXT ROUND
+              </Button>
             </div>
           ) : (
             <div>
-              <button onClick={this.higher}> HIGHER </button>
-              <button onClick={this.lower}> LOWER </button>
+              <Button variant="primary" onClick={this.higher}>
+                HIGHER
+              </Button>
+              <Button variant="primary" onClick={this.lower}>
+                LOWER
+              </Button>
             </div>
           )}
           {/* {this.state.lowerClicked && (
@@ -190,12 +203,18 @@ class GameApp extends Component {
               <p> Choice: {this.state.text} </p>
               <p> Third number: {this.state.thirdNum}</p>
               <p> Status: {this.state.status}</p>
-              <button onClick={this.nextRound}> NEXT ROUND </button>
+              <Button variant="primary" onClick={this.nextRound}>
+                NEXT ROUND
+              </Button>
             </div>
           ) : (
             <div>
-              <button onClick={this.deal}> DEAL </button>
-              <button onClick={this.noDeal}> NO DEAL </button>
+              <Button variant="primary" onClick={this.deal}>
+                DEAL
+              </Button>
+              <Button variant="primary" onClick={this.noDeal}>
+                NO DEAL
+              </Button>
             </div>
           )}
           {/* {this.state.noDealClicked && (
