@@ -126,12 +126,20 @@ class GameApp extends Component {
 
   // next round
   nextRound = () => {
-    this.state.dealClicked = false;
-    this.state.noDealClicked = false;
-    this.state.nextRoundClicked = true;
+    this.setState(
+      {
+        dealClicked: false,
+        noDealClicked: false,
+        higherClicked: false,
+        lowerClicked: false,
+        nextRoundClicked: true,
+      },
+      () => {
+        console.log("points: " + this.state.score);
+        this.start();
+      }
+    );
     // this.state.round++;
-    console.log("points: " + this.state.score);
-    this.start();
   };
 
   render() {
@@ -220,7 +228,7 @@ class GameApp extends Component {
           </div>
         </div>
       );
-    } else if (this.state.firstNum == this.state.secondNum) {
+    } else if (this.state.firstNum === this.state.secondNum) {
       return (
         <div className="start-wrapper">
           <div
@@ -319,58 +327,6 @@ class GameApp extends Component {
           >
             Start again?
           </Button>
-        </div>
-      );
-    } else if (this.state.firstNum === this.state.secondNum) {
-      return (
-        <div>
-          <p style={{ fontSize: "50px" }}>Round: {this.state.round}</p>
-          <p style={{ fontSize: "50px" }}>
-            First number: {this.state.firstNum}
-          </p>
-          <p style={{ fontSize: "50px" }}>
-            Second number: {this.state.secondNum}
-          </p>
-          {this.state.higherClicked || this.state.lowerClicked ? (
-            <div>
-              <p style={{ fontSize: "50px" }}> Choice: {this.state.text} </p>
-              <p style={{ fontSize: "50px" }}>
-                {" "}
-                Third number: {this.state.thirdNum}
-              </p>
-              <p style={{ fontSize: "50px" }}> Status: {this.state.status}</p>
-              <Button
-                style={{ margin: "10px", fontSize: "40px", textAlign: "left" }}
-                variant="primary"
-                onClick={this.nextRound}
-              >
-                NEXT ROUND
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button variant="primary" onClick={this.higher}>
-                HIGHER
-              </Button>
-              <Button variant="primary" onClick={this.lower}>
-                LOWER
-              </Button>
-            </div>
-          )}
-          {/* {this.state.lowerClicked && (
-            <div>
-              <p> Choice: {this.state.text} </p>
-              <button onClick={this.nextRound}> NEXT ROUND </button>
-            </div>
-          )} */}
-          {/* {this.state.lowerClicked && (
-            <div>
-              <p> Choice: {this.state.text} </p>
-              <p> Third number: {this.state.thirdNum}</p>
-              <p> Status: {this.state.status}</p>
-              <button onClick={this.nextRound}> NEXT ROUND </button>
-            </div>
-          )} */}
         </div>
       );
     } else {
