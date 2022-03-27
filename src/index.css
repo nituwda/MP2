@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,32 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+* {
+  color: white;
+  font-family: Montserrat;
+  box-sizing: border-box;
+}
+body {
+  background: url(./assets/test.jpg) fixed center;
+}
+.start-wrapper {
+  box-shadow: 3px 3px 15px 2px rgba(255, 255, 255, 0.829);
+  backdrop-filter: blur(40px);
+  margin-top: 7%;
+  margin-bottom: 7%;
+  margin-left: 15%;
+  margin-right: 15%;
+  align-items: center;
+  text-align: center;
+}
+.game-wrapper {
+  backdrop-filter: blur(40px);
+  box-shadow: 3px 3px 15px 2px rgba(255, 255, 255, 0.829);
+  margin-top: 7%;
+  margin-left: 15%;
+  margin-right: 15%;
+
+  align-items: center;
+  text-align: center;
 }
