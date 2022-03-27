@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/MP2/static/css/main.4d867109.css",
+    "main.js": "/MP2/static/js/main.311cfc35.js",
+    "static/js/787.fc1afeca.chunk.js": "/MP2/static/js/787.fc1afeca.chunk.js",
+    "static/media/casino.jpg": "/MP2/static/media/casino.068c1f59c4d4ec08db2c.jpg",
+    "static/media/test.jpg": "/MP2/static/media/test.a0be8de3337612f23725.jpg",
+    "index.html": "/MP2/index.html",
+    "main.4d867109.css.map": "/MP2/static/css/main.4d867109.css.map",
+    "main.311cfc35.js.map": "/MP2/static/js/main.311cfc35.js.map",
+    "787.fc1afeca.chunk.js.map": "/MP2/static/js/787.fc1afeca.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d867109.css",
+    "static/js/main.311cfc35.js"
+  ]
+}
