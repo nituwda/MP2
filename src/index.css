@@ -12,9 +12,30 @@ code {
     monospace;
 } */
 * {
-  background-color:bisque;
+  color: white;
+  font-family: Montserrat;
+  box-sizing: border-box;
 }
-
-.font-styles {
-  font-size: 24px;
+body {
+  background: url(./assets/test.jpg) fixed center ;
+  
+}
+.start-wrapper {
+  box-shadow: 3px 3px 15px 2px rgba(255, 255, 255, 0.829);
+  backdrop-filter: blur(40px);
+  margin-top: 7%;
+  margin-left: 15%;
+  margin-right: 15%;
+  align-items: center;
+  text-align: center;
+}
+.game-wrapper {
+  backdrop-filter: blur(40px);
+  box-shadow: 3px 3px 15px 2px rgba(255, 255, 255, 0.829);
+  margin-top: 7%;
+  margin-left: 15%;
+  margin-right: 15%;
+  
+  align-items: center;
+  text-align: center;
 }
